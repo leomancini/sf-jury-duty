@@ -2,7 +2,7 @@
 <html>
 
 	<head>
-		<title>__TITLE__</title>
+		<title>🏛 Jury Duty – Status Checker</title>
 		<link rel="stylesheet/less" href="resources/css/style.less">
 		<script src="resources/js/lib/less.js"></script>
 		<script src="resources/js/lib/jquery.js"></script>
@@ -11,7 +11,17 @@
 	</head>
 	<body>
 
+		<div id="container">
+			<div id="main" class="card">
+				<h1>🏛</h1> 
+				<div id="digits">
+					<input class="digit" data-digit-index="1" type="text" maxlength="1" value="<?php echo $_GET["group-number"][0]; ?>">
+					<input class="digit" data-digit-index="2" type="text" maxlength="1" value="<?php echo $_GET["group-number"][1]; ?>">
+					<input class="digit" data-digit-index="3" type="text" maxlength="1" value="<?php echo $_GET["group-number"][2]; ?>">
+				</div>
+				<div id="response"><div class="loading">Loading...</div><div class="message"></div></div>
+			</div>
+		</div>
 		
-
 	</body>
 </html>

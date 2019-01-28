@@ -2,14 +2,29 @@
 	include("scraper.php");
 	$html = scrape_url_and_clean_html("https://www.sfsuperiorcourt.org/divisions/jury-services/jury-reporting");
 		
-	preg_match('/jury reporting instructions:(.*)print/', $html, $metadata);
+	preg_match('/jury reporting instructions:(.*)print/i', $html, $metadata);
 	
-	preg_match('/civic center courthouse:(.*)groups reporting:(.*)groups on standby:(.*)groups already reported:(.*)hall of justice:(.*)groups reporting:(.*)groups on standby:(.*)groups already reported:(.*)parking and public transportation/', $html, $parsed_data);
+	preg_match('/civic center courthouse:(.*)groups reporting:(.*)groups on standby:(.*)groups already reported:(.*)hall of justice:(.*)groups reporting:(.*)groups on standby:(.*)groups already reported:(.*)parking and public transportation/i', $html, $parsed_data);
 	
 	foreach($parsed_data as $parsed_data_key => $parsed_data_value) {
 		$parsed_data_value_clean = trim($parsed_data_value);
 		$parsed_data_value_clean = str_replace("&nbsp;", "", $parsed_data_value_clean);
 		$parsed_data[$parsed_data_key] = $parsed_data_value_clean;
+	}
+	
+	function clean_string($string) {
+		$clean_string = ucfirst($string);
+		$clean_string = str_replace("Mcallister", "McAllister", $clean_string);
+		$clean_string = str_replace("And", "and", $clean_string);
+		$clean_string = str_replace("revisit", ". Revisit", $clean_string);
+		$clean_string = str_replace(" .", ".", $clean_string);
+		$clean_string = str_replace(".No groups", ". No groups", $clean_string);
+		
+		$clean_string = str_replace(",", ", [[comma spacer]]", $clean_string);
+		$clean_string = str_replace(", [[comma spacer]]", ", ", $clean_string);
+		$clean_string = str_replace(",  ", ", ", $clean_string);
+		
+		return $clean_string;
 	}
 		
 	$data = Array(
@@ -18,31 +33,33 @@
 		),
 		"locations" => Array(
 			"civic_center" => Array(
-				"address" => $parsed_data[1],
+				"long_name" => "Civic Center",
+				"address" => clean_string(ucwords(strtolower($parsed_data[1]))),
 				"groups" => Array(
 					"reporting" => Array(
-						"string" => $parsed_data[2]
+						"string" => clean_string($parsed_data[2])
 					),
 					"standby" => Array(
-						"string" => $parsed_data[3]
+						"string" => clean_string($parsed_data[3])
 					),
 					"already_reported" => Array(
-						"string" => $parsed_data[4]
-					),
+						"string" => clean_string($parsed_data[4])
+					)
 				)
 			),
 			"hall_of_justice" => Array(
-				"address" => $parsed_data[5],
+				"long_name" => "Hall of Justice",
+				"address" => clean_string(ucwords($parsed_data[5])),
 				"groups" => Array(
-				"reporting" => Array(
-					"string" => $parsed_data[6]
-				),
-				"standby" => Array(
-					"string" => $parsed_data[7]
-				),
-				"already_reported" => Array(
-					"string" => $parsed_data[8]
-				),
+					"reporting" => Array(
+						"string" => clean_string($parsed_data[6])
+					),
+					"standby" => Array(
+						"string" => clean_string($parsed_data[7])
+					),
+					"already_reported" => Array(
+						"string" => clean_string($parsed_data[8])
+					)
 				)
 			)
 		)
@@ -72,12 +89,14 @@
 		}
 	}	
 	
-	if(isset($_GET["json"])) {
-		echo json_encode($data);
-	} else {
-		echo "<pre>";
-		echo "<a href='?json'><h3>View as JSON</h3></a>";
-		print_r($data);
-		echo "</pre>";
+	if(!isset($_GET["array"])) {
+		if(isset($_GET["json"])) {
+			echo json_encode($data);
+		} else {
+			echo "<pre>";
+			echo "<a href='?json'><h3>View as JSON</h3></a>";
+			print_r($data);
+			echo "</pre>";
+		}
 	}
 ?>

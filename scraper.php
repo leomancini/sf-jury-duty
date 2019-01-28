@@ -15,7 +15,7 @@
 		$html = str_replace("\t", "", $html);
 		$html = str_replace("> <", "><", $html);
 		$html = strip_tags($html);
-		$html = strtolower($html);
+		// $html = strtolower($html);
 		
 		return $html;
 	}
