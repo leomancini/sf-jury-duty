@@ -15,9 +15,9 @@
 			<div id="main" class="card">
 				<h1>🏛</h1> 
 				<div id="digits">
-					<input class="digit" data-digit-index="1" type="text" maxlength="1" value="<?php echo $_GET["group-number"][0]; ?>">
-					<input class="digit" data-digit-index="2" type="text" maxlength="1" value="<?php echo $_GET["group-number"][1]; ?>">
-					<input class="digit" data-digit-index="3" type="text" maxlength="1" value="<?php echo $_GET["group-number"][2]; ?>">
+					<input class="digit" data-digit-index="1" type="text" maxlength="1" value="<?php echo $_GET["group-number"][0]; ?>" <?php if($_GET["group-number"][0] == "") { echo "autofocus"; } ?>>
+					<input class="digit" data-digit-index="2" type="text" maxlength="1" value="<?php echo $_GET["group-number"][1]; ?>" <?php if($_GET["group-number"][1] == "") { echo "autofocus"; } ?>>
+					<input class="digit" data-digit-index="3" type="text" maxlength="1" value="<?php echo $_GET["group-number"][2]; ?>" <?php if($_GET["group-number"][2] == "") { echo "autofocus"; } ?>>
 				</div>
 				<div id="response"><div class="loading">Loading...</div><div class="message"></div></div>
 			</div>

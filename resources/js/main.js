@@ -30,12 +30,6 @@ $(document).ready(function() {
 	// perform query on values loaded with page
 	check_group_number($(".digit[data-digit-index=1]").val()+$(".digit[data-digit-index=2]").val()+$(".digit[data-digit-index=3]").val());
 	
-	// if the first digit field is empty
-	if($(".digit[data-digit-index=1]").val() == "") {
-		// auto-focus the first digit field
-		$(".digit[data-digit-index=1]").focus().select();
-	}
-	
 	$(".digit").keyup(function(key) {
 		// update URL to include digits
 		window.history.pushState("", "", "?group-number="+$(".digit[data-digit-index=1]").val()+$(".digit[data-digit-index=2]").val()+$(".digit[data-digit-index=3]").val());
