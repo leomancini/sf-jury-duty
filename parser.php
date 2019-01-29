@@ -27,9 +27,19 @@
 		return $clean_string;
 	}
 		
+	$week_of_string = trim(str_replace("Week of", "", $metadata[1]));
+	
 	$data = Array(
 		"metadata" => Array(
-			"date" => $metadata[1]
+			"week_of" => Array(
+				"string" => $week_of_string,
+				"strtotime" => strtotime($week_of_string),
+				"date_reformatted" => Array(
+					"month" => date("m", strtotime($week_of_string)),
+					"day" => date("d", strtotime($week_of_string)),
+					"year" => date("Y", strtotime($week_of_string))
+				)
+			)
 		),
 		"locations" => Array(
 			"civic_center" => Array(
