@@ -8,7 +8,7 @@
 	$twilio_number = "";
 	$to_number = "";
 	
-	$_GET["group-number"] = "621";
+	$_GET["group-number"] = "";
 	$_GET["json"] = "";
 	include("status-checker.php");
 	
