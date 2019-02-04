@@ -2,13 +2,13 @@
 	require_once "vendor/autoload.php";
 	use Twilio\Rest\Client;
 
-	$account_sid = "";
-	$auth_token = "";
+	$account_sid = "INSERT_TWILIO_ACCOUNT_ID";
+	$auth_token = "INSERT_TWILIO_AUTH_TOKEN";
 
-	$twilio_number = "";
-	$to_number = "";
+	$twilio_number = "INSERT_TWILIO_FROM_NUMBER";
+	$to_number = "INSERT_TO_NUMBER";
 	
-	$_GET["group-number"] = "";
+	$_GET["group-number"] = "INSERT_GROUP_ID_NUMBER";
 	$_GET["json"] = "";
 	include("status-checker.php");
 	
