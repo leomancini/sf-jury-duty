@@ -43,7 +43,8 @@
 	}
 	
 	if(isset($_GET["json"])) {
-		echo json_encode($output);
+		$json = json_encode($output);
+		echo $json;
 	} else {
 		echo "<pre>";
 		if(isset($_GET["group-number"])) {
