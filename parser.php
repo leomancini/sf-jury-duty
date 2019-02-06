@@ -81,7 +81,7 @@
 		
 		$string_clean = str_replace($data["locations"]["civic_center"]["address"], "", $string);
 		$string_clean = str_replace($data["locations"]["hall_of_justice"]["address"], "", $string_clean);
-		$string_clean = preg_split('/on (.*), (.*) (\d){1,}, (\d){4}/', $string_clean)[0];
+		$string_clean = str_replace(date("Y"), "", $string_clean);
 
 		preg_match('/juror hotlineif you have questions, call us at ([2-9]\d{2}-\d{3}-\d{4}), /', $html, $hotline_number);		
 		$string_clean = str_replace($hotline_number[1], "", $string_clean);

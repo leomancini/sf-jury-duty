@@ -1,19 +1,15 @@
 <?php
+	include("secrets.php");
+	
 	require_once "vendor/autoload.php";
 	use Twilio\Rest\Client;
-
-	$account_sid = "INSERT_TWILIO_ACCOUNT_ID";
-	$auth_token = "INSERT_TWILIO_AUTH_TOKEN";
-
-	$twilio_number = "INSERT_TWILIO_FROM_NUMBER";
-	$to_number = "INSERT_TO_NUMBER";
 	
-	$_GET["group-number"] = "INSERT_GROUP_ID_NUMBER";
+	$_GET["group-number"] = $group_number;
 	$_GET["json"] = "";
 	include("status-checker.php");
 	
 	$data = json_decode($json, 1);
-	$client = new Client($account_sid, $auth_token);
+	$client = new Client($twilio_account_sid, $twilio_auth_token);
 	
 	if($data["match"] == "true") {
 		$message1 = "Match for ".$_GET["group-number"]."\n";
